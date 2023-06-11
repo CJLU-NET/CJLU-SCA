@@ -11,7 +11,7 @@ feedbackGen.prototype.randos = function () {
     let zs = 0, s = {}, res = [];
     while (1) {
         for (
-            let i = parseInt(Math.random() * this.content.length);
+            var i = parseInt(Math.random() * this.content.length);
             s[this.content[i]];
             i = parseInt(Math.random() * this.content.length)
         ) ;
