@@ -1,4 +1,4 @@
-let connection = ['课堂', '同时', '能', '也能', '此外，课堂还'];
+var connection = ['课堂', '同时', '能', '也能', '此外，课堂还'];
 
 function feedbackGen(content, connection, lenreq = 20) {
     this.content = content;
@@ -8,7 +8,7 @@ function feedbackGen(content, connection, lenreq = 20) {
 }
 
 feedbackGen.prototype.randos = function () {
-    let zs = 0, s = {}, res = [];
+    var zs = 0, s = {}, res = [];
     while (1) {
         for (
             var i = parseInt(Math.random() * this.content.length);
@@ -21,16 +21,16 @@ feedbackGen.prototype.randos = function () {
             if (zs > this.lenreq && res.length > 2) break;
         }
     }
-    let text = '';
-    for (let i = 0; i < res.length; i++) {
+    var text = '';
+    for (var i = 0; i < res.length; i++) {
         if (i) text += '，';
         text += this.connection[i] + res[i];
     }
     text += '。';
     return text;
 }
-let teacherGen = new feedbackGen(['达到了很好的教学效果', '能结合多种教学手段', '使学生对知识的掌握更深刻', '教学内容重点突出', '教学目的十分明确', '具有极高的专业技能', '授课方式新颖别致', '激起同学们的兴趣', '很注重互动', '课堂学习氛围轻松愉快', '真正达到了教学的目的要求', '内容深且广', '涵盖面广', '增加了素养', '教学效果显著', '加强自身修养', '使学生在轻松活跃的学习氛围中', '增长了知识', '可以使同学在领略知识魅力的同时提高自己实际技能', '教课内容广大博深', '高质量,高效率', '教课内容新颖', '独特，有个性', '表现出来的激情和精神可以深深吸引并打动学生'], ['课堂', '同时', "", '并且', '此外，课堂还'], 20);
-let textbookGen = new feedbackGen(['适合学生自学', '难度适中', '便于学生自学', '对知识点讲解细致', '章节安排合理', '内容丰富，讲解到位'], ['教材', '而且', '同时', '此外，教材'], 10);
+var teacherGen = new feedbackGen(['达到了很好的教学效果', '能结合多种教学手段', '使学生对知识的掌握更深刻', '教学内容重点突出', '教学目的十分明确', '具有极高的专业技能', '授课方式新颖别致', '激起同学们的兴趣', '很注重互动', '课堂学习氛围轻松愉快', '真正达到了教学的目的要求', '内容深且广', '涵盖面广', '增加了素养', '教学效果显著', '加强自身修养', '使学生在轻松活跃的学习氛围中', '增长了知识', '可以使同学在领略知识魅力的同时提高自己实际技能', '教课内容广大博深', '高质量,高效率', '教课内容新颖', '独特，有个性', '表现出来的激情和精神可以深深吸引并打动学生'], ['课堂', '同时', "", '并且', '此外，课堂还'], 20);
+var textbookGen = new feedbackGen(['适合学生自学', '难度适中', '便于学生自学', '对知识点讲解细致', '章节安排合理', '内容丰富，讲解到位'], ['教材', '而且', '同时', '此外，教材'], 10);
 
 function emit_change_event(elem, val) {
     elem.dispatchEvent(new InputEvent('change', {autoInnerEvent: true}));
@@ -38,15 +38,15 @@ function emit_change_event(elem, val) {
 }
 
 function make_form() {
-    let allPanel = $('.panel.panel-default.panel-pjdx');
-    let classInfo = $('#jsxm').parent().parent().find('.col-sm-8').text();
-    let teacher = $('#jsxm').text();
+    var allPanel = $('.panel.panel-default.panel-pjdx');
+    var classInfo = $('#jsxm').parent().parent().find('.col-sm-8').text();
+    var teacher = $('#jsxm').text();
     console.log(`教师：${teacher},课程：${classInfo}`);
-    for (let i = 0; i < allPanel.length; i++) {
-        let panel = $(allPanel[i]);
-        let panelTitle = panel.find('.panel-heading .panel-title').text();
-        let inputs = panel.find('.form-control.input-sm.input-pjf')
-        let scores;
+    for (var i = 0; i < allPanel.length; i++) {
+        var panel = $(allPanel[i]);
+        var panelTitle = panel.find('.panel-heading .panel-title').text();
+        var inputs = panel.find('.form-control.input-sm.input-pjf')
+        var scores;
         if (panelTitle.indexOf('（教材）') != -1) {
             scores = customScoringFunction_textbook(teacher, classInfo);
             if (!scores.feedback) scores.feedback = textbookGen.randos();
@@ -54,7 +54,7 @@ function make_form() {
             scores = customScoringFunction_teacher(teacher, classInfo);
             if (!scores.feedback) scores.feedback = teacherGen.randos();
         }
-        for (let j = 0; j < inputs.length; j++) {
+        for (var j = 0; j < inputs.length; j++) {
             if (!scores.score[j]) scores.score[j] = random_socre();
             $(inputs[j]).val(scores.score[j]);
             emit_change_event(inputs[j]);
@@ -84,7 +84,7 @@ async function auto_submit() {
     console.log(`[等待3s]翻页`);
     await delay(3000);
     while (1) {
-        let unSubmittedElement = $('td[title="未评"]')[0];
+        var unSubmittedElement = $('td[title="未评"]')[0];
         if (!unSubmittedElement) {
             if ($('.ui-pg-input').val() != $('#sp_1_pager').text()) {
                 console.log(`[等待3s]翻页`);
