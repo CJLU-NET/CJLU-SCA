@@ -15,9 +15,11 @@ feedbackGen.prototype.randos = function () {
             s[this.content[i]];
             i = parseInt(Math.random() * this.content.length)
         ) ;
-        zs += this.content[i].length;
-        res.push(this.content[i]);
-        if (zs > this.lenreq && res.length > 2) break;
+        if (res.indexOf(this.content[i]) == -1) {
+            zs += this.content[i].length;
+            res.push(this.content[i]);
+            if (zs > this.lenreq && res.length > 2) break;
+        }
     }
     let text = '';
     for (let i = 0; i < res.length; i++) {
@@ -122,8 +124,8 @@ if (document.title != '学生评价') {
         setTimeout(auto_submit, 5000);
 }
 
-function random_socre() {
-    return Math.floor(Math.random() * 15) + 85;
+function random_socre(min_score = 90) {
+    return Math.floor(Math.random() * (100 - min_score)) + min_score;
 }
 
 function customScoringFunction_textbook(teacherName, classInfo) {
